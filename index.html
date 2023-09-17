@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>信息登记表</title>
+    <!-- <link rel="stylesheet" href="style07.css" type="text/css"> -->
+    <style type="text/css">
+      .bg {
+        text-align: center;
+      }
+      input {
+        width: 200px;
+        height: 18px;
+        border: 1px solid #d4cdba;
+        padding: 2px;
+      }
+
+      .btn input {
+        width: 100px;
+        height: 30px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg">
+      <form action="#" method="get" autocomplete="off">
+        <h2>信息登记表</h2>
+        <p>
+          <span>您的姓名：</span>
+          <input type="text" id="name" value="111" />
+        </p>
+        <p>
+          <span>手机号码：</span>
+
+          <input type="tel" id="tel" />
+        </p>
+        <p>
+          <span>车辆牌号：</span>
+          <input type="text" id="license_plate_number" />
+        </p>
+
+        <p>
+          <span>所属部门：</span>
+          <input
+            id="department"
+            type="url"
+            list="urllist"
+            placeholder="请选择您的部门"
+          />
+          <datalist id="urllist">
+            <option>申通员工</option>
+            <option>二楼客服</option>
+            <option>主管</option>
+            <option>外来人员</option>
+            <option>...</option>
+          </datalist>
+        </p>
+        <p>
+          <span>入厂事由：</span>
+          <input type="text" id="cause" />
+        </p>
+
+        <p class="btn">
+          <input type="submit" value="提交" onclick="getSubmitData()" />
+          <input type="reset" value="重置" />
+        </p>
+      </form>
+    </div>
+  </body>
+  <script>
+    // 获取时间
+    var now = new Date();
+
+    var year = now.getFullYear(); // 获取年份
+    var month = now.getMonth() + 1; // 获取月份（注意：月份从0开始，所以需要加1）
+    var day = now.getDate(); // 获取日期
+    var hours = now.getHours(); // 获取小时
+    var minutes = now.getMinutes(); // 获取分钟
+    var seconds = now.getSeconds(); // 获取秒数
+    var riqi = month + "-" + day;
+    var time = hours + ":" + minutes + ":" + seconds;
+    console.log("年：" + year, "月日：" + riqi, "时间：" + time);
+
+    // 获取登记表内信息并且打包
+    function getSubmitData() {
+      var name = document.getElementById("name").value;
+      var tel = document.getElementById("tel").value;
+      var licensePlateNumber = document.getElementById(
+        "license_plate_number"
+      ).value;
+      var department = document.getElementById("department").value;
+      var cause = document.getElementById("cause").value;
+
+      // 在此处可以使用获取到的表单数据进行进一步的操作，比如发送到服务器或显示在页面上
+      console.log("姓名： " + name);
+      console.log("手机号码： " + tel);
+      console.log("车辆牌号： " + licensePlateNumber);
+      console.log("所属部门： " + department);
+      console.log("入厂事由： " + cause);
+      const json = JSON.stringify({
+        name: name,
+        tel: tel,
+        licensePlateNumber: licensePlateNumber,
+        department: department,
+        cause: cause,
+        time: time,
+      });
+      // 打印 JSON 数据
+      console.log(json);
+
+      // 将数据转换为 Base64
+      const base64Data = btoa(json);
+      // 打印结果
+      console.log(base64Data);
+      var data = {
+        access_token: "6b470f8f84d8fb712923a9d8cf9c55c6", // 替换为有效的访问令牌
+        content: base64Data,
+        message: "json",
+      };
+      // 创建一个新的Date对象并获取当前时间
+      var currentTime = new Date();
+      // 获取当前时间的月份（注意月份从0开始，0表示一月）
+      var month = currentTime.getMonth() + 1;
+      // 获取当前时间的日期（1-31）
+      var date = currentTime.getDate();
+      // 获取当前时间的小时数（0-23）
+      var hours = currentTime.getHours();
+      // 获取当前时间的分钟数（0-59）
+      var minutes = currentTime.getMinutes();
+      // 获取当前时间的秒数（0-59）
+      var seconds = currentTime.getSeconds();
+      // 在控制台输出当前时间的相关信息
+      console.log("月份: " + month);
+      console.log("日期: " + date);
+      console.log("小时: " + hours);
+      console.log("分钟: " + minutes);
+      console.log("秒数: " + seconds);
+      var timestamp =
+        month + "" + date + "" + hours + "" + minutes + "" + seconds;
+      console.log(timestamp);
+
+      var url =
+        "https://gitee.com/api/v5/repos/xiang-520/sto-/contents/Personnel/100/" +
+        timestamp +
+        ".json";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhr.onload = function () {
+        if (xhr.status === 201) {
+          console.log("数据上传成功!");
+        } else {
+          console.log("数据上传失败.");
+        }
+      };
+
+      xhr.onerror = function () {
+        console.log("请求异常.");
+      };
+
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+  <script src="index.js"></script>
+</html>
