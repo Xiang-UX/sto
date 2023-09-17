@@ -3,14 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <title>信息登记表</title>
-    <!-- <link rel="stylesheet" href="style07.css" type="text/css"> -->
+
     <style type="text/css">
       .bg {
         text-align: center;
       }
+
       input {
         width: 200px;
         height: 18px;
+        border: 1px solid #d4cdba;
+        padding: 2px;
+      }
+
+      #cause {
+        width: 200px;
+        height: 70px;
         border: 1px solid #d4cdba;
         padding: 2px;
       }
@@ -20,6 +28,23 @@
         height: 30px;
         border-radius: 3px;
       }
+
+      /* 适应手机大小的样式 */
+      @media only screen and (max-width: 480px) {
+        input,
+        #cause {
+          width: 100%;
+          height: auto;
+          border: none;
+          padding: 0;
+        }
+
+        .btn input {
+          width: 50px;
+          height: 20px;
+          border-radius: 2px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -28,7 +53,7 @@
         <h2>信息登记表</h2>
         <p>
           <span>您的姓名：</span>
-          <input type="text" id="name" value="111" />
+          <input type="text" id="name" />
         </p>
         <p>
           <span>手机号码：</span>
@@ -52,8 +77,9 @@
             <option>申通员工</option>
             <option>二楼客服</option>
             <option>主管</option>
+            <option>油麦仓</option>
             <option>外来人员</option>
-            <option>...</option>
+            <option>其他</option>
           </datalist>
         </p>
         <p>
@@ -118,31 +144,14 @@
         content: base64Data,
         message: "json",
       };
-      // 创建一个新的Date对象并获取当前时间
-      var currentTime = new Date();
-      // 获取当前时间的月份（注意月份从0开始，0表示一月）
-      var month = currentTime.getMonth() + 1;
-      // 获取当前时间的日期（1-31）
-      var date = currentTime.getDate();
-      // 获取当前时间的小时数（0-23）
-      var hours = currentTime.getHours();
-      // 获取当前时间的分钟数（0-59）
-      var minutes = currentTime.getMinutes();
-      // 获取当前时间的秒数（0-59）
-      var seconds = currentTime.getSeconds();
-      // 在控制台输出当前时间的相关信息
-      console.log("月份: " + month);
-      console.log("日期: " + date);
-      console.log("小时: " + hours);
-      console.log("分钟: " + minutes);
-      console.log("秒数: " + seconds);
-      var timestamp =
-        month + "" + date + "" + hours + "" + minutes + "" + seconds;
-      console.log(timestamp);
 
       var url =
-        "https://gitee.com/api/v5/repos/xiang-520/sto-/contents/Personnel/100/" +
-        timestamp +
+        "https://gitee.com/api/v5/repos/xiang-520/sto-/contents/Personnel/" +
+        year +
+        "/" +
+        riqi +
+        "/" +
+        time +
         ".json";
 
       var xhr = new XMLHttpRequest();
