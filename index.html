@@ -5,28 +5,46 @@
     <title>信息登记表</title>
 
     <style type="text/css">
-      .bg {
-        text-align: center;
+      * {
+        margin: 0;
+        padding: 0;
       }
 
+      .bg {
+        text-align: center;
+        width: 100%;
+      }
+      h1 {
+        margin: 25px;
+      }
+      p {
+        margin: 20px;
+      }
       input {
-        width: 200px;
-        height: 18px;
+        width: 50%;
+        height: 30px;
         border: 1px solid #d4cdba;
         padding: 2px;
       }
-
-      #cause {
+      span {
+        font-size: 25px;
+      }
+      /* 入厂事由 */
+      /* #cause {
         width: 200px;
         height: 70px;
         border: 1px solid #d4cdba;
         padding: 2px;
-      }
+      } */
 
       .btn input {
         width: 100px;
         height: 30px;
         border-radius: 3px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: 5px;
+        margin-left: 5px;
       }
 
       /* 适应手机大小的样式 */
@@ -42,7 +60,7 @@
         .btn input {
           width: 50px;
           height: 20px;
-          border-radius: 2px;
+          border-radius: 5px;
         }
       }
     </style>
@@ -50,7 +68,7 @@
   <body>
     <div class="bg">
       <form action="#" method="get" autocomplete="off">
-        <h2>信息登记表</h2>
+        <h1>信息登记表</h1>
         <p>
           <span>您的姓名：</span>
           <input type="text" id="name" />
