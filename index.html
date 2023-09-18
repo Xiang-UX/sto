@@ -64,6 +64,7 @@
         }
       }
     </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/buffer/6.0.3/buffer.min.js"></script>
   </head>
   <body>
     <div class="bg">
@@ -154,21 +155,23 @@
       console.log(json);
 
       // 将数据转换为 Base64
-      const base64Data = btoa(json);
+      const base64Data = btoa(unescape(encodeURIComponent(json)));
       // 打印结果
       console.log(base64Data);
+
       var data = {
-        access_token: "6b470f8f84d8fb712923a9d8cf9c55c6", // 替换为有效的访问令牌
+        access_token: "7f8823412c1b2262f256ee292d7d6fa2", // 替换为有效的访问令牌
         content: base64Data,
         message: "json",
       };
 
       var url =
-        "https://gitee.com/api/v5/repos/xiang-520/sto-/contents/Personnel/" +
+        "https://gitee.com/api/v5/repos/xiang-520/sto/contents/Personnel/" +
         year +
         "/" +
         riqi +
         "/" +
+        name +
         time +
         ".json";
 
@@ -179,8 +182,10 @@
       xhr.onload = function () {
         if (xhr.status === 201) {
           console.log("数据上传成功!");
+          alert("信息提交成功");
         } else {
           console.log("数据上传失败.");
+          alert("信息提交失败，请再次尝试。如多次尝试未果请联系门岗");
         }
       };
 
@@ -191,5 +196,4 @@
       xhr.send(JSON.stringify(data));
     }
   </script>
-  <script src="index.js"></script>
 </html>
